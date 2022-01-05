@@ -1,0 +1,36 @@
+Electronic Load Notes
+-----------------------------------------------------------
+Christoffer Karlsson 2022
+
+Based on circuit by Codrey Electronics [https://www.codrey.com/electronic-circuits/simple-electronic-dc-load/]
+
+-----------------------------------------------------------
+Usage notes
+-----------------------------------------------------------
+Connect a 12V DC power supply to J1 and turn on the power switch SW1. The "power on" LED will come on and the fan will immediately start spinning. Connect up to 200V DC between the LOAD terminals J2 (+) and J3 (-). N.B. The LOAD needs to be electrically separated from the power supply! The current (or apparent resistance) can be varied with the "Load regulator" potentiometer up to 10A. It is recommended to turn this down to zero before switching on the load. On power up, the load will be turned off for safety, and can be turned on by pressing the "Load on" button SW2. The "Load on" LED D3 should light up and current is allowed to pass through the electronic load. If the cooling is not sufficient for the MOSFET, causing it to overheat, the load will be turned off, and the "Overheat" LED D2 will light up. The load can not be turned on again until the MOSFET has cooled down and the overheat signal goes out. With the components I used, I was able to draw ~25 W continuously without triggering the overheat protection.
+
+-----------------------------------------------------------
+Circuit design notes
+-----------------------------------------------------------
+There is an excellent explanation in the blog post above explaining the considerations of choosing components for this circuit. Below are some additional notes about this design in particular.
+
+I used the small resistance of the ammeter (~0.3 ohm in my case) as the current sensing resistor for the comparator U1B. By trial and error I got 10A at the maximum position of RV1 with 1k and 82k for RV1 and R2, respectively.
+
+Use a big enough conductor for the 10A current path. Note also specifically between the ground points for MES1, K1, C2 and C3.
+
+It's a good idea to have a discharge resistor R5 so that C3 will not hold charge long after disconnecting the load. With R5 = 200k and C3 = 4.7µF, C3 will discharge within a few seconds, and will contribute less than 1 mA to the load current. Without R5, C3 can hold up to 200V on the load terminals for some time!
+
+The thermistor TH1 is used to detect overheating of the MOSFET, and should be placed directly on top of it with some thermal compound. The trimpot RV2 is used to set the cutoff temperature, eg. by running the load until reaching the desired cutoff temperature and then slowly lowering RV2 until the load turns off.
+
+R1, R6 & R10 are current limiting resistors for the status LEDs. Change as necessary for the LEDs.
+
+Based on 12V DC power supply to suit a 12V fan, but it should work fine with other voltages as well.
+
+-----------------------------------------------------------
+Limitations / Future improvements
+-----------------------------------------------------------
+The circuit does not feature any protection against reverse voltage or overvoltage.
+
+The overheat protection works by disconnecting LOAD (-) from the common ground with the relay K1. If LOAD (-) is externally connected to the power supply, the protection will not work! (And will even cause a short circuit if connected to the positive power supply!)
+
+In my build LOAD (+) is connected to the metallic case through the heat sink, which is not ideal.
