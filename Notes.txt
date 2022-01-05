@@ -3,6 +3,7 @@ Electronic Load Notes
 Christoffer Karlsson 2022
 
 Based on circuit by Codrey Electronics [https://www.codrey.com/electronic-circuits/simple-electronic-dc-load/]
+With added overheating protection
 
 -----------------------------------------------------------
 Usage notes
